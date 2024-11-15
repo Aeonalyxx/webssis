@@ -1,1 +1,5 @@
 # webssis
+
+#pipenv
+#pymysql
+#cloudinary
