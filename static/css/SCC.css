@@ -70,34 +70,54 @@ table thead th {
 }
 
 .table-container {
-    max-height: 800px; /* Set desired height for the scrollable area */
+    max-height: 600px; /* Set desired height for the scrollable area */
     overflow-y: auto;
 }
 
-.table {
+.courses-table, .students-table, .colleges-table {
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
 }
 
-/* Specific width for each column to align with data rows */
-.table th:nth-child(1), .table td:nth-child(1) { width: 5%; }
-.table th:nth-child(2), .table td:nth-child(2) { width: 18%; }
-.table th:nth-child(3), .table td:nth-child(3) { width: 20%; }
-.table th:nth-child(4), .table td:nth-child(4) { width: 10%; }
-.table th:nth-child(5), .table td:nth-child(5) { width: 12%; }
-.table th:nth-child(6), .table td:nth-child(6) { width: 10%; }
-.table th:nth-child(7), .table td:nth-child(7) { width: 15%; }
+/* Students Table */
+.students-table th:nth-child(1), .students-table td:nth-child(1) { width: 5%; }
+.students-table th:nth-child(2), .students-table td:nth-child(2) { width: 18%; }
+.students-table th:nth-child(3), .students-table td:nth-child(3) { width: 20%; }
+.students-table th:nth-child(4), .students-table td:nth-child(4) { width: 10%; }
+.students-table th:nth-child(5), .students-table td:nth-child(5) { width: 12%; }
+.students-table th:nth-child(6), .students-table td:nth-child(6) { width: 10%; }
+.students-table th:nth-child(7), .students-table td:nth-child(7) { width: 15%; }
 
+.students-table thead th:nth-child(2) { padding-left: 40px; }
+.students-table thead th:nth-child(3) { padding-left: 0px; }
+.students-table tbody td:nth-child(2) { padding-left: 55px; }
+.students-table tbody td:nth-child(3) { padding-left: 10px; }
+.students-table tbody td:nth-child(4) { padding-left: 25px; }
+.students-table tbody td:nth-child(5) { padding-left: 30px; }
+.students-table tbody td:nth-child(6) { padding-left: 32px; }
 
-.table thead th:nth-child(2) { padding-left: 40px; }
-.table thead th:nth-child(3) { padding-left: -30px; }
-.table tbody td:nth-child(2) { padding-left: 45px; }
-.table tbody td:nth-child(3) { padding-left: -35px; }
-.table tbody td:nth-child(4) { padding-left: 15px; }
-.table tbody td:nth-child(5) { padding-left: 30px; }
-.table tbody td:nth-child(6) { padding-left: 32px; }
+/* Courses Table */
+.courses-table th:nth-child(1), .courses-table td:nth-child(1) { width: 10%; }
+.courses-table th:nth-child(2), .courses-table td:nth-child(2) { width: 40%; }
+.courses-table th:nth-child(3), .courses-table td:nth-child(3) { width: 15%; }
+.courses-table th:nth-child(4), .courses-table td:nth-child(4) { width: 10%; }
 
+.courses-table thead th:nth-child(2) { padding-left: 40px; }
+.courses-table thead th:nth-child(3) { padding-left: 10px; }
+.courses-table tbody td:nth-child(2) { padding-left: 35px; }
+.courses-table tbody td:nth-child(3) { padding-left: 10px; }
+.courses-table tbody td:nth-child(4) { padding-left: 25px; }
+
+/* Colleges Table */
+.colleges-table th:nth-child(1), .colleges-table td:nth-child(1) { width: 10%; }
+.colleges-table th:nth-child(2), .colleges-table td:nth-child(2) { width: 30%; }
+.colleges-table th:nth-child(3), .colleges-table td:nth-child(3) { width: 6%; }
+
+.colleges-table thead th:nth-child(2) { padding-left: 40px; }
+.colleges-table thead th:nth-child(3) { padding-left: 10px; }
+.colleges-table tbody td:nth-child(2) { padding-left: 35px; }
+.colleges-table tbody td:nth-child(3) { padding-left: -40px; }
 
 .table thead,
 .table thead th {
@@ -114,7 +134,7 @@ table thead th {
 
 .table tbody {
     display: block;
-    max-height: 700px; /* Control the scrollable area height */
+    max-height: 510px; /* Control the scrollable area height */
     overflow-y: auto;
     width: 100%;
 }

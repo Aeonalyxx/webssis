@@ -4,7 +4,7 @@ from pymysql.cursors import DictCursor
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'root',
-    'password': 'decepticons',
+    'password': 'decepticons21',
     'database': 'webssis'
 }
 

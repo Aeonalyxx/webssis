@@ -20,9 +20,8 @@ CREATE TABLE IF NOT EXISTS students (
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     gender VARCHAR(6) NOT NULL,
-    course_code VARCHAR(10), 
-    photo_url VARCHAR(255);
-
+    course_code VARCHAR(10),
     year VARCHAR(1) NOT NULL,
+    photo_url VARCHAR(255),
     FOREIGN KEY (course_code) REFERENCES courses(course_code) ON DELETE SET NULL
 );
