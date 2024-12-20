@@ -1,6 +1,6 @@
 # student.py (Model)
 import pymysql
-from app.database import get_db_connection
+from app.utils.database import get_db_connection
 
 def get_students(search_query='', filter_by=''):
     query = "SELECT * FROM students"

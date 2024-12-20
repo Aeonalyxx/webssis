@@ -1,5 +1,5 @@
 # webssis
 
-pip install pipenv pymysql cloudinary 
+pip install pipenv pymysql cloudinary dotenv
 
 pipenv install

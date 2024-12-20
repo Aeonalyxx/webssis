@@ -1,5 +1,5 @@
 import pymysql
-from app.database import get_db_connection
+from app.utils.database import get_db_connection
 
 def get_courses(search_query='', filter_by=''):
     sql = "SELECT * FROM courses"
