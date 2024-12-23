@@ -32,7 +32,15 @@ def get_students(search_query='', filter_by=''):
 
 def add_student(student_id, first_name, last_name, gender, course_code, year, photo_url):
     conn = get_db_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+    cursor.execute("SELECT * FROM students WHERE student_id = %s", (student_id,))
+    existing_student = cursor.fetchone()
+
+    if existing_student:
+        cursor.close()
+        conn.close()
+        return False 
 
     query = """
         INSERT INTO students (student_id, first_name, last_name, gender, course_code, year, photo_url)
@@ -43,10 +51,22 @@ def add_student(student_id, first_name, last_name, gender, course_code, year, ph
 
     cursor.close()
     conn.close()
+    return True  
 
 def update_student(student_id, new_student_id, first_name, last_name, gender, course_code, year, photo_url):
     conn = get_db_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+    cursor.execute(
+        "SELECT student_id FROM students WHERE student_id = %s AND student_id != %s",
+        (new_student_id, student_id)
+    )
+    existing_student = cursor.fetchone()
+
+    if existing_student:
+        cursor.close()
+        conn.close()
+        return False  
 
     query = """
         UPDATE students
@@ -58,6 +78,9 @@ def update_student(student_id, new_student_id, first_name, last_name, gender, co
 
     cursor.close()
     conn.close()
+    return True
+
+
 
 def delete_student(student_id):
     conn = get_db_connection()
@@ -69,3 +92,16 @@ def delete_student(student_id):
 
     cursor.close()
     conn.close()
+
+def get_student_by_id(student_id):
+    conn = get_db_connection()
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+    query = "SELECT * FROM students WHERE student_id = %s"
+    cursor.execute(query, (student_id,))
+    student = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+    return student
+
