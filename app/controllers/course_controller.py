@@ -8,11 +8,7 @@ def handle_add_course(course_code, course_name, col_code):
     success = add_course(course_code, course_name, col_code)
     return success
 
-def handle_edit_course(course_code, course_data):
-    new_course_code = course_data['course_code']
-    course_name = course_data['course_name']
-    col_code = course_data['col_code']
-
+def handle_edit_course(course_code, new_course_code, course_name, col_code):
     update_course(course_code, new_course_code, course_name, col_code)
 
 def handle_delete_course(course_code):

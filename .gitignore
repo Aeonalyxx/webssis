@@ -1,6 +1,7 @@
 .env
 .venv
 .mypy_cache
+.vscode
 sessions
 
 */__pycache__

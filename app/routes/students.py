@@ -13,19 +13,27 @@ def students_page():
     students, courses = get_students_page(search_query, filter_by)
     return render_template('students.html', students=students, courses=courses)
 
+#=======================================================================================ADD STUDENT=============================================================
+
 @students_bp.route('/add_student', methods=['POST'])
 def add_student():
     try:
-        student_data = request.form
+        student_id = request.form['student_id']
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        gender = request.form['gender']
+        course_code = request.form.get('course_code')
+        year = request.form['year']
         photo = request.files.get('photo')
-        success = handle_add_student(student_data, photo)
-        
+
+        success = handle_add_student(student_id, first_name, last_name, gender, course_code, year, photo)
+
         if not success:
-            flash(f'Student ID already exists!', 'danger')
+            flash('Student ID already exists!', 'danger')
         else:
             flash('Student added successfully!', 'success')
     except Exception as e:
-        flash(f'Student ID already exists!', 'danger')
+        flash(f'Error adding student: {str(e)}', 'danger')
 
     return redirect(url_for('students.students_page'))
 
@@ -34,14 +42,31 @@ def add_student():
 @students_bp.route('/edit_student/<string:student_id>', methods=['GET', 'POST'])
 def edit_student(student_id):
     if request.method == 'POST':
-        student_data = request.form
-        photo = request.files.get('photo')
+        new_student_id = request.form['student_id']
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        gender = request.form['gender']
+        course_code = request.form.get('course_code')
+        year = request.form['year']
+        photo = request.files.get('photo')  
         
         try:
-            handle_edit_student(student_id, student_data, photo)
-            flash('Student updated successfully!', 'success')
+            success = handle_edit_student(
+                student_id=student_id,
+                new_student_id=new_student_id,
+                first_name=first_name,
+                last_name=last_name,
+                gender=gender,
+                course_code=course_code,
+                year=year,
+                photo=photo
+            )
+            if not success:
+                flash('Student ID already exists!', 'danger')
+            else:
+                flash('Student updated successfully!', 'success')
         except Exception as e:
-            flash(f'Student ID already exists!', 'danger')
+            flash(f'Error updating student: {str(e)}', 'danger')
         
         return redirect(url_for('students.students_page'))
 

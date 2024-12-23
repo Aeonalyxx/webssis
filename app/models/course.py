@@ -44,7 +44,7 @@ def add_course(course_code, course_name, col_code):
     existing_course = cursor.fetchone()
 
     if existing_course:
-        return False  # College code already exists
+        return False
     else:
         cursor.execute("INSERT INTO courses (course_code, course_name, col_code) VALUES (%s, %s, %s)", 
                     (course_code, course_name, col_code))
@@ -56,11 +56,9 @@ def add_course(course_code, course_name, col_code):
 def update_course(course_code, new_course_code, course_name, col_code):
     conn = get_db_connection()
     cursor = conn.cursor()
-
     cursor.execute("UPDATE courses SET course_code = %s, course_name = %s, col_code = %s WHERE course_code = %s",
                    (new_course_code, course_name, col_code, course_code))
     conn.commit()
-
     cursor.close()
     conn.close()
 

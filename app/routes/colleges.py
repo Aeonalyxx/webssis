@@ -12,6 +12,8 @@ def colleges_page():
 
     return render_template('colleges.html', colleges=colleges)
 
+#=======================================================================================ADD COLLEGE=============================================================
+
 @colleges_bp.route('/add_college', methods=['POST'])
 def add_college():
     try:
@@ -30,6 +32,8 @@ def add_college():
 
     return redirect(url_for('colleges.colleges_page'))
 
+#=======================================================================================EDIT COLLEGE=============================================================
+
 @colleges_bp.route('/edit_college/<string:col_code>', methods=['GET', 'POST'])
 def edit_college(col_code):
     if request.method == 'POST':
@@ -44,6 +48,8 @@ def edit_college(col_code):
         return redirect(url_for('colleges.colleges_page'))
 
     return render_template('edit_college.html', col_code=col_code)
+
+#=======================================================================================DELETE COLLEGE=============================================================
 
 @colleges_bp.route('/delete_college', methods=['POST'])
 def delete_college():
