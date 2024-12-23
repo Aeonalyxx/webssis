@@ -1,4 +1,3 @@
-# students.py (Routes)
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from app.controllers.student_controller import (
     get_students_page, handle_add_student, handle_edit_student, handle_delete_student

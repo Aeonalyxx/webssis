@@ -1,4 +1,3 @@
-# student.py (Model)
 import pymysql
 from app.utils.database import get_db_connection
 

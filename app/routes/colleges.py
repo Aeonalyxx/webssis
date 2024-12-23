@@ -3,6 +3,8 @@ from app.controllers.college_controller import get_colleges_page, handle_add_col
 
 colleges_bp = Blueprint('colleges', __name__)
 
+#=======================================================================================COLLEGE PAGE=============================================================
+
 @colleges_bp.route('/', methods=['GET'])
 def colleges_page():
     search_query = request.args.get('search_query', '')

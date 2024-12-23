@@ -39,13 +39,13 @@ def add_college(col_code, col_name):
     existing_college = cursor.fetchone()
 
     if existing_college:
-        return False  # College code already exists
+        return False  
     else:
         cursor.execute("INSERT INTO colleges (col_code, col_name) VALUES (%s, %s)", (col_code, col_name))
         conn.commit()
         cursor.close()
         conn.close()
-        return True  # College added successfully
+        return True  
 
 def update_college(col_code, new_col_code, col_name):
     conn = get_db_connection()

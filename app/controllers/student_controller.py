@@ -22,7 +22,6 @@ def handle_edit_student(student_id, new_student_id, first_name, last_name, gende
     existing_photo = get_student_by_id(student_id)
     photo_url = existing_photo['photo_url'] if existing_photo else None
 
-    # Upload new photo if provided
     if photo and photo.filename.lower().endswith(('.png', '.jpg', '.jpeg')):
         try:
             upload_result = cloudinary.uploader.upload(photo)
@@ -30,7 +29,6 @@ def handle_edit_student(student_id, new_student_id, first_name, last_name, gende
         except Exception as e:
             raise Exception(f"Error uploading photo: {str(e)}")
 
-    # Call the model to update the student record
     success = update_student(student_id, new_student_id, first_name, last_name, gender, course_code, year, photo_url)
     return success
 
