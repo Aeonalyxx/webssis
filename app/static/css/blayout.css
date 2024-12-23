@@ -1,0 +1,205 @@
+/* Base Styles */
+body {
+    position: relative;               /* Position relative for pseudo-element */
+    min-height: 100vh;               /* Ensure the body takes full height */
+    overflow-x: hidden;
+    color: #e0bd31 !important;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+/* Pseudo-element for the background */
+body::before {
+    content: "";                     /* Required for pseudo-elements */
+    position: absolute;              /* Position it absolutely */
+    top: 0;                          /* Align to the top */
+    left: 0;                         /* Align to the left */
+    right: 0;                        /* Stretch to the right */
+    bottom: 0;                       /* Stretch to the bottom */
+    background-image: url('../images/background.jpg') !important; /* Background image */
+    background-size: cover;          /* Cover the entire viewport */
+    background-repeat: no-repeat;    /* Prevent repetition */
+    background-position: center;     /* Center the image */
+    filter: blur(8px);               /* Apply blur effect */
+    z-index: -1;                     /* Place behind other content */
+}
+
+
+
+.flash-messages {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Make sure it's on top */
+    left: 50%;
+    transform: translateX(-50%); /* Center align horizontally */
+}
+
+.flash-messages .alert {
+    margin: 0 auto;
+    width: fit-content;
+    position: relative;  /* Makes sure the close button is positioned relative to the alert */
+    padding-right: 30px;  /* Ensures there is space for the close button */
+    font-size: 1rem;
+    text-align: center;
+    background-color: #800000; /* Maroon background */
+    color: white; /* White font color */
+    border-radius: 5px; /* Optional: add rounded corners */
+}
+
+.flash-messages .alert .close {
+    position: absolute;
+    top: 43%;  
+    right: -10px;  
+    transform: translateY(-50%); 
+}
+
+.flash-messages .alert i {
+    margin-right: 10px; /* Add spacing between the icon and the message */
+}
+
+
+
+
+/* Main content styling */
+.container-fluid {
+    position: relative;              /* Position relative for proper layering */
+}
+
+/* Table Text Color */
+table {
+    color: rgb(0, 0, 0); /* Set table text color to white */
+    font-size: 19px;
+}
+
+/* Optional: Set the background of the table to a darker color for contrast */
+table th, table td {
+    background-color: rgba(255, 255, 255, 0.750); /* Dark background for table cells */
+}
+
+
+/* Sidebar Logo Styling */
+.sidebar-logo {
+    width: 100px;               /* Logo width */
+    height: 100px;              /* Logo height */
+    margin-left: -12px;         /* Space to the right of the logo */
+    margin-bottom: 0;           /* Remove bottom margin */
+    margin-top: 5px;
+    filter: brightness(1.2);
+    transition: filter 0.3s;
+}
+
+
+/* Sidebar Title Styling */
+.sidebar-title {
+    font-size: 50px;            /* Title font size */
+    margin: 0;                  /* No margin around the title */
+    display: block;             /* Block display for full width */
+    font-weight: bolder;        /* Bold font weight */
+    color: #e0bd31;
+    text-align: center;         /* Center align title */
+    margin-top: 35px;
+}
+
+/* Sidebar Subtitle Styling */
+.sidebar-subtitle {
+    font-size: 24px;            /* Adjust font size as needed */
+    color: #d43f3f;             /* Set subtitle color */
+    margin-top: 45px;            /* Reduce spacing between logo and subtitle */
+    margin-bottom: 3px;        /* Optional: Add space below subtitle */
+    margin-left: 0px;
+    margin-right: 3px;
+    font-weight: bolder;          /* Optional: make subtitle less bold */
+    text-align: center;         /* Center align subtitle */
+    display: block;             /* Block display for full width */
+}
+
+
+.sidebar {
+    position: fixed;            /* Fixed position on the page */
+    width: 300px;              /* Width of sidebar */
+    height: 100%;              /* Full height of viewport */
+    z-index: 1000;             /* Ensure sidebar is above other elements */
+    border-right: 1px solid #dddddd; /* Right border for separation */
+    overflow: hidden;          /* Hide overflow to contain the blur effect */
+}
+
+.sidebar::before {
+    content: '';
+    position: absolute;        /* Position the pseudo-element absolutely */
+    top: 0;                   /* Align to the top */
+    left: 0;                  /* Align to the left */
+    right: 0;                 /* Stretch to the right */
+    bottom: 0;                /* Stretch to the bottom */
+    background-image: url('../images/sidebg.png'); /* Background image */
+    background-size: cover;    /* Cover the entire area */
+    filter: blur(20px);       /* Apply blur effect */
+    z-index: -2;              /* Place behind the content */
+}
+
+/* Dark overlay */
+.sidebar::after {
+    content: '';
+    position: absolute;        /* Position the overlay absolutely */
+    top: 0;                   /* Align to the top */
+    left: 0;                  /* Align to the left */
+    right: 0;                 /* Stretch to the right */
+    bottom: 0;                /* Stretch to the bottom */
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+    z-index: -1;              /* Place above the blurred background */
+}
+
+/* Additional styling for content in the sidebar */
+.sidebar-content {
+    position: relative;       /* Keep content above the blurred background and overlay */
+    z-index: 1;              /* Ensure content is on top */
+    padding: 20px;           /* Optional padding */
+    color: white;            /* Change text color if needed */
+}
+
+
+
+/* Sidebar Header Styling */
+.sidebar-header {
+    padding: 20px;              /* Padding inside the header */
+    text-align: center;         /* Center align header content */
+    background: #f8f9fa;        /* Background color of header */
+    border-bottom: 1px solid #dddddd; /* Bottom border for separation */
+}
+
+/* Sidebar Links */
+.sidebar a {
+    color: #e0bd31;             /* Link text color */
+    padding: 18px;              /* Padding inside the link */
+    display: flex;              /* Flex display for alignment */
+    align-items: center;        /* Center alignment for icon and text */
+    text-decoration: none;      /* Remove underline from links */
+    transition: background 0.3s;/* Smooth background transition */
+    font-size: 20px;            /* Font size for links */
+    margin-top: 25px;
+}
+
+/* Sidebar Link Hover Effect */
+.sidebar a:hover {
+    background: #f5f5f5;        /* Background color on hover */
+    color: #a23333;             /* Text color on hover */
+}
+
+/* Sidebar Icons */
+.sidebar a i {
+    margin-right: 10px;         /* Space between icon and text */
+    font-size: 24px;            /* Icon size */
+}
+
+
+/* Main Content Styling */
+.content {
+    margin-left: 300px;         /* Space to account for sidebar width */
+    padding: 20px;              /* Padding for content */
+    transition: margin-left 0.3s; /* Smooth transition for content shifting */
+}
+
+/* Main Content Header */
+.content h1 {
+    margin-top: 0;              /* Remove top margin for header */
+}
