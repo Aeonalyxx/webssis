@@ -8,8 +8,12 @@ def get_students(search_query='', filter_by=''):
     
     if search_query:
         if filter_by:
-            query += f" WHERE {filter_by} LIKE %s"
-            params.append(f"%{search_query}%")
+            if filter_by == "gender":
+                query += " WHERE LOWER(gender) = LOWER(%s)"
+                params.append(search_query)
+            else:
+                query += f" WHERE {filter_by} LIKE %s"
+                params.append(f"%{search_query}%")
         else:
             query += """
                 WHERE student_id LIKE %s OR first_name LIKE %s OR last_name LIKE %s 

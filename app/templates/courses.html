@@ -19,7 +19,6 @@
             </button>
 
             <select class="form-control form-control-sm ml-2" id="filterSelect" name="filter_by" aria-label="Filter by">
-                <option value="" disabled selected>Filter by...</option>
                 <option value="course_code" {% if request.args.get('filter_by') == 'course_code' %}selected{% endif %}>Course Code</option>
                 <option value="course_name" {% if request.args.get('filter_by') == 'course_name' %}selected{% endif %}>Course Name</option>
                 <option value="col_code" {% if request.args.get('filter_by') == 'col_code' %}selected{% endif %}>College</option>
