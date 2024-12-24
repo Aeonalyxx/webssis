@@ -1,6 +1,6 @@
 from flask import Flask, redirect, url_for
 from app.routes import students_bp, courses_bp, colleges_bp
-from app.utils.cloudinary_utils import configure_cloudinary
+from app.utils.utils import configure_cloudinary
 from app.config import Config
 
 def create_app():

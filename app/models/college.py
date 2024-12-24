@@ -1,5 +1,5 @@
 import pymysql
-from app.utils.database import get_db_connection
+from app.utils.utils import get_db_connection
 
 def get_colleges(search_query='', filter_by=''):
     query = "SELECT * FROM colleges WHERE 1=1"
