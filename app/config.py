@@ -4,6 +4,7 @@ import os
 load_dotenv()
 
 class Config:
+    SECRET_KEY = os.getenv('SECRET_KEY')
     DATABASE = {
         'host': os.getenv('DATABASE_HOST'),
         'user': os.getenv('DATABASE_USER'),
