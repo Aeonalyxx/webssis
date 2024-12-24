@@ -2,8 +2,8 @@ from app.models.student import get_students, add_student, update_student, delete
 import cloudinary.uploader
 
 def get_students_page(search_query='', filter_by=''):
-    students, courses = get_students(search_query, filter_by)
-    return students, courses
+    students = get_students(search_query, filter_by)
+    return students
 
 def handle_add_student(student_id, first_name, last_name, gender, course_code, year, photo):
     photo_url = None

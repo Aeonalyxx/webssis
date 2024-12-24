@@ -1,8 +1,8 @@
 from app.models.course import get_courses, add_course, update_course, delete_course
 
 def get_courses_page(search_query='', filter_by=''):
-    courses, colleges = get_courses(search_query, filter_by)
-    return courses, colleges
+    courses = get_courses(search_query, filter_by)
+    return courses
 
 def handle_add_course(course_code, course_name, col_code):
     success = add_course(course_code, course_name, col_code)
