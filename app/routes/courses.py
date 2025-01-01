@@ -9,10 +9,12 @@ courses_bp = Blueprint('courses', __name__)
 def courses_page():
     search_query = request.args.get('search_query', '')  
     filter_by = request.args.get('filter_by', '')  
+    page = int(request.args.get('page', 1))  
+    per_page = 8  
 
-    courses, colleges = get_courses_page(search_query, filter_by)
+    courses, colleges, total_pages = get_courses_page(search_query, filter_by, page, per_page)
 
-    return render_template('courses.html', courses=courses, colleges=colleges)
+    return render_template('courses.html', courses=courses, colleges=colleges, page=page, per_page=per_page, total_pages=total_pages)
 
 #=======================================================================================ADD COURSE=============================================================
 

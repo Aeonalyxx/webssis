@@ -50,7 +50,7 @@
             <tr>
                 <td>
                     {% if student.photo_url %}
-                        <img src="{{ student.photo_url }}" alt="Student Photo" width="50" height="50">
+                    <img src="{{ student.photo_url }}" alt="Student Photo" width="40" height="40" style="border-radius: 50%;" >
                     {% endif %}
                 </td>
                 <td>{{ student.student_id }}</td>
@@ -74,7 +74,45 @@
     </table>
 </div>
 
+<div class="pagination-container">
+    <ul class="pagination">
+        {% if page > 1 %}
+        <li>
+            <a href="?page={{ page - 1 }}&search_query={{ request.args.get('search_query', '') }}&filter_by={{ request.args.get('filter_by', '') }}">&#x276E;</a>
+        </li>
+        {% endif %}
 
+        {% if start_page > 1 %}
+        <li>
+            <a href="?page=1&search_query={{ request.args.get('search_query', '') }}&filter_by={{ request.args.get('filter_by', '') }}">1</a>
+        </li>
+        {% if start_page > 2 %}
+        <li class="disabled"><span>...</span></li>
+        {% endif %}
+        {% endif %}
+
+        {% for p in range(start_page, end_page + 1) %}
+        <li class="{% if p == page %}active{% endif %}">
+            <a href="?page={{ p }}&search_query={{ request.args.get('search_query', '') }}&filter_by={{ request.args.get('filter_by', '') }}">{{ p }}</a>
+        </li>
+        {% endfor %}
+
+        {% if end_page < total_pages %}
+        {% if end_page < total_pages - 1 %}
+        <li class="disabled"><span>...</span></li>
+        {% endif %}
+        <li>
+            <a href="?page={{ total_pages }}&search_query={{ request.args.get('search_query', '') }}&filter_by={{ request.args.get('filter_by', '') }}">{{ total_pages }}</a>
+        </li>
+        {% endif %}
+
+        {% if page < total_pages %}
+        <li>
+            <a href="?page={{ page + 1 }}&search_query={{ request.args.get('search_query', '') }}&filter_by={{ request.args.get('filter_by', '') }}">&#x276F;</a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
 
 <!-- Add Student Modal -->
 <div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel" aria-hidden="true">

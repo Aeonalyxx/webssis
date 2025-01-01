@@ -9,8 +9,31 @@ students_bp = Blueprint('students', __name__)
 def students_page():
     search_query = request.args.get('search_query', '')
     filter_by = request.args.get('filter_by', '')
-    students, courses = get_students_page(search_query, filter_by)
-    return render_template('students.html', students=students, courses=courses)
+    page = int(request.args.get('page', 1))
+    per_page = 8
+    students, courses, total_pages = get_students_page(search_query, filter_by, page, per_page)
+
+    # Calculate the start and end of the pagination range
+    start_page = max(page - 2, 1)
+    end_page = min(page + 2, total_pages)
+
+    # Ensure the range is exactly 5 pages when possible
+    if end_page - start_page < 4:
+        if start_page == 1:
+            end_page = min(5, total_pages)
+        else:
+            start_page = max(total_pages - 4, 1)
+
+    return render_template(
+        'students.html',
+        students=students,
+        courses=courses,
+        page=page,
+        per_page=per_page,
+        total_pages=total_pages,
+        start_page=start_page,
+        end_page=end_page
+    )
 
 #=======================================================================================ADD STUDENT=============================================================
 

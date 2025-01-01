@@ -1,7 +1,7 @@
 import pymysql
 from app.utils.utils import get_db_connection
 
-def get_courses(search_query='', filter_by=''):
+def get_courses(search_query='', filter_by='', page=1, per_page=8):
     sql = "SELECT * FROM courses"
     where_clauses = []
     params = []
@@ -24,8 +24,18 @@ def get_courses(search_query='', filter_by=''):
     if where_clauses:
         sql += " WHERE " + " AND ".join(where_clauses)
 
+    count_sql = f"SELECT COUNT(*) as total FROM ({sql}) AS count_table"
+    
     conn = get_db_connection()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
+    
+    cursor.execute(count_sql, tuple(params))
+    total_count = cursor.fetchone()['total']
+
+    offset = (page - 1) * per_page
+    sql += " LIMIT %s OFFSET %s"
+    params.extend([per_page, offset])
+
     cursor.execute(sql, tuple(params))
     courses = cursor.fetchall()
 
@@ -35,7 +45,7 @@ def get_courses(search_query='', filter_by=''):
     cursor.close()
     conn.close()
 
-    return courses, colleges
+    return courses, colleges, total_count
 
 def add_course(course_code, course_name, col_code):
     conn = get_db_connection()

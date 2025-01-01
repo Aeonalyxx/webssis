@@ -1,10 +1,10 @@
 import pymysql
 from app.utils.utils import get_db_connection
 
-def get_students(search_query='', filter_by=''):
+def get_students(search_query='', filter_by='', page=1, per_page=8):
     query = "SELECT * FROM students"
     params = []
-    
+
     if search_query:
         if filter_by:
             if filter_by == "gender":
@@ -20,8 +20,17 @@ def get_students(search_query='', filter_by=''):
             """
             params.extend([f"%{search_query}%"] * 3 + [search_query] + [f"%{search_query}%"] * 2)
 
+    count_query = f"SELECT COUNT(*) AS total FROM ({query}) AS count_table"
+    
     conn = get_db_connection()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
+    cursor.execute(count_query, tuple(params))
+    total_count = cursor.fetchone()['total']
+
+    offset = (page - 1) * per_page
+    query += " LIMIT %s OFFSET %s"
+    params.extend([per_page, offset])
+
     cursor.execute(query, tuple(params))
     students = cursor.fetchall()
 
@@ -31,7 +40,8 @@ def get_students(search_query='', filter_by=''):
     cursor.close()
     conn.close()
 
-    return students, courses
+    return students, courses, total_count
+
 
 def add_student(student_id, first_name, last_name, gender, course_code, year, photo_url):
     conn = get_db_connection()
