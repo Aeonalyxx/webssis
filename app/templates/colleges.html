@@ -33,28 +33,34 @@
     <table class="table colleges-table mt-3">
         <thead>
             <tr>
-                <th>College Code</th>
+                <th>College ID</th>
                 <th>College Name</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            {% for college in colleges %}
-            <tr>
-                <td>{{ college.col_code }}</td>
-                <td>{{ college.col_name }}</td>
-                <td class="action-buttons">
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#editCollegeModal"
-                            data-col-code="{{ college.col_code }}" data-col-name="{{ college.col_name }}">
-                        <i class="fas fa-edit"></i> 
-                    </button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#deleteCollegeModal" 
-                            data-col-code="{{ college.col_code }}">
-                        <i class="fas fa-trash-alt"></i> 
-                    </button>
-                </td>
-            </tr>
-            {% endfor %}
+            {% if colleges %}
+                {% for college in colleges %}
+                <tr>
+                    <td>{{ college.col_code }}</td>
+                    <td>{{ college.col_name }}</td>
+                    <td class="action-buttons">
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#editCollegeModal"
+                                data-col-code="{{ college.col_code }}" data-col-name="{{ college.col_name }}">
+                            <i class="fas fa-edit"></i> 
+                        </button>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteCollegeModal" 
+                                data-col-code="{{ college.col_code }}">
+                            <i class="fas fa-trash-alt"></i> 
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="7" class="text-center">No colleges found.</td>
+                </tr>
+            {% endif %}
         </tbody>        
     </table>
 </div>

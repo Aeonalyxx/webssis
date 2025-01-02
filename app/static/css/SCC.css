@@ -139,7 +139,8 @@ table thead th {
 
 .table tbody {
     display: block;
-    max-height: 454px; /* Control the scrollable area height */
+    max-height: 480px; /* Control the scrollable area height */
+    overflow-y: auto;
     width: 100%;
 }
 

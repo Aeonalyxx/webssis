@@ -23,7 +23,7 @@
                 <option value="first_name" {% if request.args.get('filter_by') == 'first_name' %}selected{% endif %}>First Name</option>
                 <option value="last_name" {% if request.args.get('filter_by') == 'last_name' %}selected{% endif %}>Last Name</option>
                 <option value="gender" {% if request.args.get('filter_by') == 'gender' %}selected{% endif %}>Gender</option>
-                <option value="course_code" {% if request.args.get('filter_by') == 'course_code' %}selected{% endif %}>Course Code</option>
+                <option value="course_code" {% if request.args.get('filter_by') == 'course_code' %}selected{% endif %}>Program</option>
                 <option value="year" {% if request.args.get('filter_by') == 'year' %}selected{% endif %}>Year</option>
             </select>
         </form>
@@ -40,36 +40,42 @@
                 <th>Student ID</th>
                 <th>Name</th>
                 <th>Gender</th>
-                <th>Course Code</th>
+                <th>Program</th>
                 <th>Year</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            {% for student in students %}
-            <tr>
-                <td>
-                    {% if student.photo_url %}
-                    <img src="{{ student.photo_url }}" alt="Student Photo" width="40" height="40" style="border-radius: 50%;" >
-                    {% endif %}
-                </td>
-                <td>{{ student.student_id }}</td>
-                <td>{{ student.first_name }} {{ student.last_name }}</td>
-                <td>{{ student.gender }}</td>
-                <td>{{ student.course_code }}</td>
-                <td>{{ student.year }}</td>
-                <td class="action-buttons">
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#editStudentModal" 
-                            data-student-id="{{ student.student_id }}" data-first-name="{{ student.first_name }}" data-last-name="{{ student.last_name }}"
-                            data-gender="{{ student.gender }}" data-course-code="{{ student.course_code }}" data-year="{{ student.year }}">
-                        <i class="fas fa-edit"></i> 
-                    </button>                
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#deleteStudentModal" data-id="{{ student.student_id }}">
-                        <i class="fas fa-trash-alt"></i> 
-                    </button>
-                </td>
-            </tr>
-            {% endfor %}
+            {% if students %}
+                {% for student in students %}
+                <tr>
+                    <td>
+                        {% if student.photo_url %}
+                        <img src="{{ student.photo_url }}" alt="Student Photo" width="40" height="40" style="border-radius: 50%;">
+                        {% endif %}
+                    </td>
+                    <td>{{ student.student_id }}</td>
+                    <td>{{ student.first_name }} {{ student.last_name }}</td>
+                    <td>{{ student.gender }}</td>
+                    <td>{{ student.course_code }}</td>
+                    <td>{{ student.year }}</td>
+                    <td class="action-buttons">
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#editStudentModal" 
+                                data-student-id="{{ student.student_id }}" data-first-name="{{ student.first_name }}" data-last-name="{{ student.last_name }}"
+                                data-gender="{{ student.gender }}" data-course-code="{{ student.course_code }}" data-year="{{ student.year }}">
+                            <i class="fas fa-edit"></i> 
+                        </button>                
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteStudentModal" data-id="{{ student.student_id }}">
+                            <i class="fas fa-trash-alt"></i> 
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="7" class="text-center">No students found.</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 </div>

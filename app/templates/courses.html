@@ -34,29 +34,35 @@
     <table class="table courses-table mt-3">
         <thead>
             <tr>
-                <th>Course Code</th>
+                <th>Course ID</th>
                 <th>Course Name</th>
-                <th>College Code</th>
+                <th>College ID</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            {% for course in courses %}
-            <tr>
-                <td>{{ course.course_code }}</td>
-                <td>{{ course.course_name }}</td>
-                <td>{{ course.col_code }}</td>
-                <td class="action-buttons">
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#editCourseModal" 
-                            data-course-code="{{ course.course_code }}" data-course-name="{{ course.course_name }}" data-col-code="{{ course.col_code }}">
-                        <i class="fas fa-edit"></i> 
-                    </button>                
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#deleteCourseModal" data-code="{{ course.course_code }}">
-                        <i class="fas fa-trash-alt"></i> 
-                    </button>
-                </td>
-            </tr>
-            {% endfor %}
+            {% if courses %}
+                {% for course in courses %}
+                <tr>
+                    <td>{{ course.course_code }}</td>
+                    <td>{{ course.course_name }}</td>
+                    <td>{{ course.col_code }}</td>
+                    <td class="action-buttons">
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#editCourseModal" 
+                                data-course-code="{{ course.course_code }}" data-course-name="{{ course.course_name }}" data-col-code="{{ course.col_code }}">
+                            <i class="fas fa-edit"></i> 
+                        </button>                
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteCourseModal" data-code="{{ course.course_code }}">
+                            <i class="fas fa-trash-alt"></i> 
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="7" class="text-center">No courses found.</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 </div>
