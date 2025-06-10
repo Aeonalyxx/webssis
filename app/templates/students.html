@@ -133,20 +133,20 @@
             <div class="modal-body">
                 <form action="{{ url_for('students.add_student') }}" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="student_id">Student ID</label>
+                        <label class="labeler" for="student_id">Student ID</label>
                         <input type="text" class="form-control" id="student_id" name="student_id" 
                                pattern="^\d{4}-\d{4}$" title="Student ID must be in YYYY-NNNN format" required>
                     </div>                    
                     <div class="form-group">
-                        <label for="first_name">First Name</label>
+                        <label class="labeler" for="first_name">First Name</label>
                         <input type="text" class="form-control" id="first_name" name="first_name" required>
                     </div>
                     <div class="form-group">
-                        <label for="last_name">Last Name</label>
+                        <label class="labeler" for="last_name">Last Name</label>
                         <input type="text" class="form-control" id="last_name" name="last_name" required>
                     </div>
                     <div class="form-group">
-                        <label for="gender">Gender</label>
+                        <label class="labeler" for="gender">Gender</label>
                         <select class="form-control" id="gender" name="gender" required>
                             <option value="" disabled selected>Select Gender</option>
                             <option value="Male">Male</option>
@@ -154,7 +154,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="course_code">Course Code</label>
+                        <label class="labeler" for="course_code">Course Code</label>
                         <select class="form-control" id="course_code" name="course_code" required>
                             <option value="" disabled selected>Select a course</option>
                             {% for course in courses %}
@@ -165,7 +165,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="year">Year</label>
+                        <label class="labeler" for="year">Year</label>
                         <select class="form-control" id="year" name="year" required>
                             <option value="" disabled selected>Select Year</option>
                             <option value="1">1</option>
@@ -175,7 +175,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="photo">Student Photo (Optional)</label>
+                        <label class="labeler" for="photo">Student Photo (Optional)</label>
                         <input type="file" class="form-control-file" id="photo" name="photo" accept="image/jpeg, image/png">
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>

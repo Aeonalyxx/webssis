@@ -61,9 +61,50 @@
 .modal-content select.form-control,
 .modal-content textarea {
     color: rgb(0, 0, 0) !important;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
+    font-size: 14px;
 }
 
+.labeler{
+    font-size: 17px;
+}
+/* Reduce spacing around form groups */
+.modal-body .form-group {
+    margin-bottom: 6px;  /* default is ~16px in Bootstrap 4 */
+  }
+  
+  /* Make input boxes and selects smaller */
+  .modal-body .form-control,
+  .modal-body .form-control-file,
+  .modal-body select {
+    padding: 4px 8px;
+  }
+  
+  /* Compress label spacing */
+  .modal-body .form-group label {
+    margin-bottom: 2px;
+  }
+  
+  /* Compress modal padding if needed */
+  .modal-content {
+    padding: 10px;
+  }
+  
+  /* Optional: reduce modal header padding */
+  .modal-header {
+    padding: 10px 14px;
+  }
+  
+  /* Optional: reduce modal body padding */
+  .modal-body {
+    padding: 10px 14px;
+  }
+  
+  /* Optional: reduce modal footer if you have one */
+  .modal-footer {
+    padding: 10px 14px;
+  }
+  
 /* Additional Styles for Table */
 table thead th {
     color: #922a2a !important;
