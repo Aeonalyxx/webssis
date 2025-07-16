@@ -1,0 +1,35 @@
+<!-- Add Course Modal -->
+<div class="modal fade" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="addCourseModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="color: black;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCourseModalLabel">Add Course</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('courses.add_course') }}" method="POST">
+                    <div class="form-group">
+                        <label for="course_code">Course Code</label>
+                        <input type="text" class="form-control" id="course_code" name="course_code" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="course_name">Course Name</label>
+                        <input type="text" class="form-control" id="course_name" name="course_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="col_code">College Code</label>
+                        <select class="form-control" id="col_code" name="col_code" required>
+                            <option value="" disabled selected>Select College</option required>
+                            {% for college in colleges %}
+                                <option value="{{ college.col_code }}">{{ college.col_code }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

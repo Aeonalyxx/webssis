@@ -1,0 +1,26 @@
+<!-- Add College Modal -->
+<div class="modal fade" id="addCollegeModal" tabindex="-1" role="dialog" aria-labelledby="addCollegeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="color: black;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCollegeModalLabel">Add College</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('colleges.add_college') }}" method="POST">
+                    <div class="form-group">
+                        <label for="col_code">College Code</label>
+                        <input type="text" class="form-control" id="col_code" name="col_code" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="college_name">College Name</label>
+                        <input type="text" class="form-control" id="college_name" name="college_name" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
