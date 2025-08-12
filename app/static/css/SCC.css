@@ -62,11 +62,11 @@
 .modal-content textarea {
     color: rgb(0, 0, 0) !important;
     font-weight: 500 !important;
-    font-size: 19px;
+    font-size: 14px;
 }
 
 .labeler{
-    font-size: 20px;
+    font-size: 17px;
 }
 /* Reduce spacing around form groups */
 .modal-body .form-group {
