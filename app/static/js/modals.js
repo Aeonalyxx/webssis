@@ -14,7 +14,12 @@ document.getElementById('searchButton').addEventListener('click', function() {
 // Reset Add Student Modal on Open
 //===================================================================
 $('#addStudentModal').on('show.bs.modal', function () {
-    $(this).find('input, select, textarea').val(''); // Clear inputs
+    $(this).find('input[type="text"], input[type="number"], textarea').val('');
+    $(this).find('select').prop('selectedIndex', 0);
+    $(this).find('input[type="file"]').val('');
+
+    var defaultPhoto = $('#photoPreview').data('default');
+    $('#photoPreview').attr('src', defaultPhoto);
 });
 
 //===================================================================
@@ -33,7 +38,7 @@ $('form').on('submit', function(event) {
 });
 
 //===================================================================
-// Populate Edit Student Modal
+// Populate Edit Student Modal (Cloudinary support)
 //===================================================================
 $('#editStudentModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); 
@@ -43,6 +48,7 @@ $('#editStudentModal').on('show.bs.modal', function (event) {
     var gender = button.data('gender');
     var courseCode = button.data('course-code');
     var year = button.data('year'); 
+    var photoUrl = button.data('photo');
 
     var modal = $(this);
     modal.find('form').attr('action', '/students/edit_student/' + studentId);
@@ -53,7 +59,32 @@ $('#editStudentModal').on('show.bs.modal', function (event) {
     modal.find('#edit_gender').val(gender);
     modal.find('#edit_course_code').val(courseCode);
     modal.find('#edit_year').val(year);
+
+    if (photoUrl) {
+        modal.find('#editPhotoPreview').attr('src', photoUrl);
+    } else {
+        modal.find('#editPhotoPreview').attr('src', $('#editPhotoPreview').data('default'));
+    }
 });
+
+//===================================================================
+// Reset photo & file input when modal closes
+//===================================================================
+$('#editStudentModal').on('hide.bs.modal', function () {
+    $('#edit_photo').val('');
+    $('#editPhotoPreview').attr('src', $('#editPhotoPreview').data('default'));
+});
+
+//===================================================================
+// Preview selected new photo in Edit Modal
+//===================================================================
+function previewEditPhoto(event) {
+    const reader = new FileReader();
+    reader.onload = function(){
+        document.getElementById('editPhotoPreview').src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+}
 
 //===================================================================
 // Delete Student Modal

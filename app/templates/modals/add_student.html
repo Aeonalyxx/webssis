@@ -1,6 +1,6 @@
 <!-- Add Student Modal -->
 <div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content" style="color: black;">
             <div class="modal-header">
                 <h5 class="modal-title" id="addStudentModalLabel">Add Student</h5>
@@ -10,53 +10,69 @@
             </div>
             <div class="modal-body">
                 <form action="{{ url_for('students.add_student') }}" method="POST" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label class="labeler" for="student_id">Student ID</label>
-                        <input type="text" class="form-control" id="student_id" name="student_id" 
-                               pattern="^\d{4}-\d{4}$" title="Student ID must be in YYYY-NNNN format" required>
-                    </div>                    
-                    <div class="form-group">
-                        <label class="labeler" for="first_name">First Name</label>
-                        <input type="text" class="form-control" id="first_name" name="first_name" required>
+                    <div class="row">
+                        <!-- Left Column: Student Details -->
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label for="student_id">Student ID</label>
+                                <input type="text" class="form-control" id="student_id" name="student_id" 
+                                    pattern="^\d{4}-\d{4}$" title="Student ID must be in YYYY-NNNN format" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="first_name">First Name</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name">Last Name</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <select class="form-control" id="gender" name="gender" required>
+                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="course_code">Course Code</label>
+                                <select class="form-control" id="course_code" name="course_code" required>
+                                    <option value="" disabled selected>Select a course</option>
+                                    {% for course in courses %}
+                                        <option value="{{ course.course_code }}" {% if course.course_code == students.course_code %}selected{% endif %}>
+                                            {{ course.course_code }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="year">Year</label>
+                                <select class="form-control" id="year" name="year" required>
+                                    <option value="" disabled selected>Select Year</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Photo Upload & Preview -->
+                    <div class="col-md-5 text-center">
+                        <label for="photo">Student Photo (Optional)</label>
+                        <input type="file" class="form-control-file mb-3" id="photo" name="photo" 
+                            accept="image/jpeg, image/png" onchange="previewPhoto(event)">
+                        <img id="photoPreview" 
+                            src="{{ url_for('static', filename='images/default_student.webp') }}" 
+                            data-default="{{ url_for('static', filename='images/default_student.webp') }}"
+                            alt="Student Photo" 
+                            class="img-thumbnail rounded-circle" 
+                            style="width: 200px; height: 200px; object-fit: cover;">
                     </div>
-                    <div class="form-group">
-                        <label class="labeler" for="last_name">Last Name</label>
-                        <input type="text" class="form-control" id="last_name" name="last_name" required>
                     </div>
-                    <div class="form-group">
-                        <label class="labeler" for="gender">Gender</label>
-                        <select class="form-control" id="gender" name="gender" required>
-                            <option value="" disabled selected>Select Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="labeler" for="course_code">Course Code</label>
-                        <select class="form-control" id="course_code" name="course_code" required>
-                            <option value="" disabled selected>Select a course</option>
-                            {% for course in courses %}
-                                <option value="{{ course.course_code }}" {% if course.course_code == students.course_code %}selected{% endif %}>
-                                    {{ course.course_code }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="labeler" for="year">Year</label>
-                        <select class="form-control" id="year" name="year" required>
-                            <option value="" disabled selected>Select Year</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="labeler" for="photo">Student Photo (Optional)</label>
-                        <input type="file" class="form-control-file" id="photo" name="photo" accept="image/jpeg, image/png">
-                    </div>
-                    <div class="text-right">
+
+                    <!-- Buttons -->
+                    <div class="text-right mt-3">
                         <button type="submit" class="btn btn-primary">Save</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
@@ -65,3 +81,14 @@
         </div>
     </div>
 </div>
+
+<!-- JS for Image Preview -->
+<script>
+function previewPhoto(event) {
+    const reader = new FileReader();
+    reader.onload = function(){
+        document.getElementById('photoPreview').src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+}
+</script>

@@ -64,12 +64,22 @@
                     <td>{{ student.course_code }}</td>
                     <td>{{ student.year }}</td>
                     <td class="action-buttons">
-                        <button class="btn btn-warning" data-toggle="modal" data-target="#editStudentModal" 
-                                data-student-id="{{ student.student_id }}" data-first-name="{{ student.first_name }}" data-last-name="{{ student.last_name }}"
-                                data-gender="{{ student.gender }}" data-course-code="{{ student.course_code }}" data-year="{{ student.year }}">
+                        <button class="btn btn-warning" 
+                                data-toggle="modal" 
+                                data-target="#editStudentModal" 
+                                data-student-id="{{ student.student_id }}" 
+                                data-first-name="{{ student.first_name }}" 
+                                data-last-name="{{ student.last_name }}"
+                                data-gender="{{ student.gender }}" 
+                                data-course-code="{{ student.course_code }}" 
+                                data-year="{{ student.year }}"
+                                data-photo="{{ student.photo_url if student.photo_url else '' }}">
                             <i class="fas fa-edit"></i> 
-                        </button>                
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteStudentModal" data-id="{{ student.student_id }}">
+                        </button>
+                        <button class="btn btn-danger" 
+                                data-toggle="modal" 
+                                data-target="#deleteStudentModal" 
+                                data-id="{{ student.student_id }}">
                             <i class="fas fa-trash-alt"></i> 
                         </button>
                     </td>
@@ -84,6 +94,7 @@
     </table>
 </div>
 
+{% if total_pages >= 2 %}
 <div class="pagination-container">
     <ul class="pagination">
         {% if page > 1 %}
@@ -123,6 +134,7 @@
         {% endif %}
     </ul>
 </div>
+{% endif %}
 
 <!--
 <script>

@@ -67,6 +67,7 @@
     </table>
 </div>
 
+{% if total_pages >= 2 %}
 <div class="pagination-container">
     <ul class="pagination">
         {% if page > 1 %}
@@ -88,6 +89,7 @@
         {% endif %}
     </ul>
 </div>
+{% endif %}
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {

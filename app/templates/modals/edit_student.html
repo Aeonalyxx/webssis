@@ -1,6 +1,6 @@
 <!-- Edit Student Modal -->
 <div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="editStudentModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content" style="color: black;">
             <div class="modal-header">
                 <h5 class="modal-title" id="editStudentModalLabel">Edit Student</h5>
@@ -9,53 +9,70 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url_for('students.edit_student', student_id=students.student_id) }}" method="POST" enctype="multipart/form-data">
+                <form id="editStudentForm" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="old_student_id" id="old_student_id">
-                    <div class="form-group">
-                        <label for="edit_student_id">Student ID</label>
-                        <input type="text" class="form-control" id="edit_student_id" name="student_id" required>
+
+                    <div class="row">
+                        <!-- Left Column -->
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label for="edit_student_id">Student ID</label>
+                                <input type="text" class="form-control" id="edit_student_id" name="student_id" 
+                                    pattern="^\d{4}-\d{4}$" title="Student ID must be in YYYY-NNNN format" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_first_name">First Name</label>
+                                <input type="text" class="form-control" id="edit_first_name" name="first_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_last_name">Last Name</label>
+                                <input type="text" class="form-control" id="edit_last_name" name="last_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_gender">Gender</label>
+                                <select class="form-control" id="edit_gender" name="gender" required>
+                                    <option value="" disabled>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_course_code">Course Code</label>
+                                <select class="form-control" id="edit_course_code" name="course_code" required>
+                                    <option value="" disabled>Select a course</option>
+                                    {% for course in courses %}
+                                        <option value="{{ course.course_code }}">{{ course.course_code }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_year">Year</label>
+                                <select class="form-control" id="edit_year" name="year" required>
+                                    <option value="" disabled>Select Year</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Photo -->
+                        <div class="col-md-5 text-center">
+                            <label for="edit_photo">Student Photo (Optional)</label>
+                            <input type="file" class="form-control-file mb-3" id="edit_photo" name="photo" 
+                                accept="image/jpeg, image/png" onchange="previewEditPhoto(event)">
+                            <img id="editPhotoPreview" 
+                                src="{{ url_for('static', filename='images/default_student.webp') }}" 
+                                data-default="{{ url_for('static', filename='images/default_student.webp') }}"
+                                alt="Student Photo" 
+                                class="img-thumbnail rounded-circle" 
+                                style="width: 200px; height: 200px; object-fit: cover;">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="edit_first_name">First Name</label>
-                        <input type="text" class="form-control" id="edit_first_name" name="first_name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_last_name">Last Name</label>
-                        <input type="text" class="form-control" id="edit_last_name" name="last_name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_gender">Gender</label>
-                        <select class="form-control" id="edit_gender" name="gender" required>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_course_code">Course Code</label>
-                        <select class="form-control" id="edit_course_code" name="course_code" required>
-                            <option value="">Select a course</option>
-                            {% for course in courses %}
-                                <option value="{{ course.course_code }}" {% if course.course_code == edit_course_code %}selected{% endif %}>
-                                    {{ course.course_code }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_year">Year</label>
-                        <select class="form-control" id="edit_year" name="year" required>
-                            <option value="" disabled selected>Select Year</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="photo">Student Photo (Optional)</label>
-                        <input type="file" class="form-control-file" id="photo" name="photo" accept="image/jpeg, image/png">
-                    </div>
-                    <div class="text-right">
+
+                    <!-- Buttons -->
+                    <div class="text-right mt-3">
                         <button type="submit" class="btn btn-primary">Save</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
