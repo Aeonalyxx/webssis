@@ -4,7 +4,7 @@
 
 {% block content %}
 <!-- SEARCH -->
-<div class="d-flex align-items-center mt-5">
+<div class="d-flex align-items-center mt-4">
     <h2><strong>Courses</strong></h2>
     <button class="btn btn-success ml-3 add-course-button" data-toggle="modal" data-target="#addCourseModal">
         <i class="fas fa-plus"></i>
@@ -88,6 +88,20 @@
         {% endif %}
     </ul>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('courseSearch');
+    const form = searchInput.closest('form');
+
+    searchInput.addEventListener('input', () => {
+      if (searchInput.value === '') {
+        form.submit();  
+      }
+    });
+  });
+</script>
+
 {% include "modals/add_course.html" %}
 {% include "modals/edit_course.html" %}
 {% include "modals/delete_course.html" %}

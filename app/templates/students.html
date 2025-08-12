@@ -4,7 +4,7 @@
 
 {% block content %}
 <!-- SEARCH -->
-<div class="d-flex align-items-center mt-5">
+<div class="d-flex align-items-center mt-4">
     <h2><strong>Students</strong></h2>
     <button class="btn btn-success ml-3 add-student-button" data-toggle="modal" data-target="#addStudentModal">
         <i class="fas fa-plus"></i>
@@ -123,6 +123,41 @@
         {% endif %}
     </ul>
 </div>
+
+<!--
+<script>
+  function debounce(func, delay) {
+    let timer;
+    return function() {
+      clearTimeout(timer);
+      timer = setTimeout(func, delay);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('studentSearch');
+    const form = searchInput.closest('form');
+
+    searchInput.addEventListener('input', debounce(() => {
+      form.submit();
+    }, 500));
+  });
+</script>
+-->
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('studentSearch');
+    const form = searchInput.closest('form');
+
+    searchInput.addEventListener('input', () => {
+      if (searchInput.value === '') {
+        form.submit();  
+      }
+    });
+  });
+</script>
+
 {% include "modals/add_student.html" %}
 {% include "modals/edit_student.html" %}
 {% include "modals/delete_student.html" %}
