@@ -82,38 +82,43 @@ table th, table td {
 .sidebar-logo {
     width: 100px;               /* Logo width */
     height: 100px;              /* Logo height */
-    margin-left: -12px;         /* Space to the right of the logo */
-    margin-bottom: 0;           /* Remove bottom margin */
-    margin-top: 5px;
+    margin: 5px 0 10px 0;       /* Top 5px, bottom 10px for spacing below logo */
     filter: brightness(1.2);
     transition: filter 0.3s;
+    display: block;             /* Ensure block so margin works properly */
+    margin-left: auto;          /* Center horizontally */
+    margin-right: auto;
 }
 
 
+.sidebar-text {
+    text-align: center;
+    line-height: 1.2;
+}
+
 /* Sidebar Title Styling */
 .sidebar-title {
-    font-size: 50px;            /* Title font size */
-    margin: 0;                  /* No margin around the title */
-    display: block;             /* Block display for full width */
-    font-weight: bolder;        /* Bold font weight */
+    margin: 0;                 /* Remove top/bottom margin */
+    font-size: 36px;           /* Slightly smaller for better balance */
+    font-weight: bolder;
     color: #e0bd31;
-    text-align: center;         /* Center align title */
-    margin-top: 35px;
+}
+
+.sidebar-sticky {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;         /* Space from top of sidebar */
+    gap: 5px;                  /* Space between elements */
 }
 
 /* Sidebar Subtitle Styling */
 .sidebar-subtitle {
-    font-size: 24px;            /* Adjust font size as needed */
-    color: #d43f3f;             /* Set subtitle color */
-    margin-top: 45px;            /* Reduce spacing between logo and subtitle */
-    margin-bottom: 3px;        /* Optional: Add space below subtitle */
-    margin-left: 0px;
-    margin-right: 3px;
-    font-weight: bolder;          /* Optional: make subtitle less bold */
-    text-align: center;         /* Center align subtitle */
-    display: block;             /* Block display for full width */
+    margin: 0;                 /* Remove top/bottom margin */
+    font-size: 40px;
+    font-weight: bolder;
+    color: #d43f3f;
 }
-
 
 .sidebar {
     position: fixed;            /* Fixed position on the page */
@@ -170,19 +175,27 @@ table th, table td {
 /* Sidebar Links */
 .sidebar a {
     color: #e0bd31;             /* Link text color */
-    padding: 18px;              /* Padding inside the link */
+    padding: 12px 24px;         /* Padding inside the link, wider horizontally */
     display: flex;              /* Flex display for alignment */
     align-items: center;        /* Center alignment for icon and text */
     text-decoration: none;      /* Remove underline from links */
-    transition: background 0.3s;/* Smooth background transition */
-    font-size: 20px;            /* Font size for links */
+    transition: background 0.3s, color 0.3s; /* Smooth transition */
+    font-size: 25px;            /* Font size for links */
     margin-top: 25px;
+    border-radius: 25px;        /* Oval shape with high border radius */
 }
 
-/* Sidebar Link Hover Effect */
+/* Hover effect */
 .sidebar a:hover {
-    background: #f5f5f5;        /* Background color on hover */
-    color: #a23333;             /* Text color on hover */
+    background: #e0bd31;        /* Dark red background on hover */
+    color: #a23333;                /* White text on hover */
+}
+
+/* Active link (clicked) styling */
+.sidebar a.active,
+.sidebar a.active:hover {
+    background: #e0bd31;        /* Keep the dark red background */
+    color: #a23333;                /* White text */
 }
 
 /* Sidebar Icons */

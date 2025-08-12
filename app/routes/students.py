@@ -28,7 +28,7 @@ def students_page():
 
 @students_bp.route('/add_student', methods=['POST'])
 def add_student():
-    message, category = handle_add_student(
+    success, message, category = handle_add_student(
         request.form['student_id'],
         request.form['first_name'],
         request.form['last_name'],
@@ -44,7 +44,7 @@ def add_student():
 @students_bp.route('/edit_student/<string:student_id>', methods=['GET', 'POST'])
 def edit_student(student_id):
     if request.method == 'POST':
-        message, category = handle_edit_student(
+        success, message, category = handle_edit_student(
             student_id=student_id,
             new_student_id=request.form['student_id'],
             first_name=request.form['first_name'],
