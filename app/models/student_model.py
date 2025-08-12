@@ -2,49 +2,90 @@ import pymysql
 from app.utils.utils import get_db_connection
 
 def get_students(search_query='', filter_by='', page=1, per_page=8):
-    base_query = "SELECT * FROM students"
+    column_map = {
+        "student_id": "s.student_id",
+        "first_name": "s.first_name",
+        "last_name": "s.last_name",
+        "gender": "s.gender",
+        "course_code": "c.course_code",
+        "year": "s.year",
+        "college": "col.col_name"
+    }
+
+    base_query = """
+        SELECT 
+            s.student_id,
+            s.first_name,
+            s.last_name,
+            s.gender,
+            s.year,
+            s.photo_url,
+            c.course_code,
+            CONCAT(c.course_code, IF(col.col_name IS NOT NULL, CONCAT(' (', col.col_name, ')'), '')) AS program
+        FROM students s
+        LEFT JOIN courses c ON s.course_code = c.course_code
+        LEFT JOIN colleges col ON c.col_code = col.col_code
+    """
     params = []
 
     if search_query:
         if filter_by:
+            col = column_map.get(filter_by, filter_by)
             if filter_by == "gender":
-                base_query += " WHERE LOWER(gender) LIKE LOWER(%s)"
+                base_query += f" WHERE LOWER({col}) LIKE LOWER(%s)"
                 params.append(f"{search_query}%")
             elif filter_by in ("first_name", "last_name"):
-                base_query += f" WHERE {filter_by} LIKE %s"
+                base_query += f" WHERE {col} LIKE %s"
                 params.append(f"{search_query}%")
             else:
-                base_query += f" WHERE {filter_by} LIKE %s"
+                base_query += f" WHERE {col} LIKE %s"
                 params.append(f"%{search_query}%")
         else:
             base_query += """
-                WHERE student_id LIKE %s OR first_name LIKE %s OR last_name LIKE %s 
-                OR LOWER(gender) = LOWER(%s) OR course_code LIKE %s OR year LIKE %s
+                WHERE s.student_id LIKE %s 
+                   OR s.first_name LIKE %s 
+                   OR s.last_name LIKE %s 
+                   OR LOWER(s.gender) = LOWER(%s) 
+                   OR c.course_code LIKE %s 
+                   OR s.year LIKE %s
+                   OR col.col_name LIKE %s
+                   OR CONCAT(c.course_code, ' (', col.col_name, ')') LIKE %s
             """
-            params.extend([f"%{search_query}%"] * 3 + [search_query] + [f"%{search_query}%"] * 2)
+            params.extend([
+                f"%{search_query}%",  #student_id
+                f"%{search_query}%",  #first_name
+                f"%{search_query}%",  #last_name
+                search_query,         #gender exact
+                f"%{search_query}%",  #course_code
+                f"%{search_query}%",  #year
+                f"%{search_query}%",  #college name
+                f"%{search_query}%"   #program string
+            ])
 
     if filter_by == "student_id":
-        order_by = "student_id ASC, first_name ASC"
+        order_by = "s.student_id ASC, s.first_name ASC"
     elif filter_by == "first_name":
-        order_by = "first_name ASC, student_id ASC"
+        order_by = "s.first_name ASC, s.student_id ASC"
     elif filter_by == "last_name":
-        order_by = "last_name ASC, first_name ASC, student_id ASC"
+        order_by = "s.last_name ASC, s.first_name ASC, s.student_id ASC"
     elif filter_by == "gender":
         order_by = """
             CASE 
-                WHEN LOWER(gender) = 'female' THEN 0 
-                WHEN LOWER(gender) = 'male' THEN 1 
+                WHEN LOWER(s.gender) = 'female' THEN 0 
+                WHEN LOWER(s.gender) = 'male' THEN 1 
                 ELSE 2 
             END,
-            first_name ASC,
-            student_id ASC
+            s.first_name ASC,
+            s.student_id ASC
         """
     elif filter_by == "year":
-        order_by = "CAST(year AS UNSIGNED) ASC, first_name ASC, student_id ASC"
+        order_by = "CAST(s.year AS UNSIGNED) ASC, s.first_name ASC, s.student_id ASC"
     elif filter_by == "course_code":
-        order_by = "course_code ASC, first_name ASC, student_id ASC"
+        order_by = "c.course_code ASC, s.first_name ASC, s.student_id ASC"
+    elif filter_by == "college":
+        order_by = "col.col_name ASC, s.first_name ASC, s.student_id ASC"
     else:
-        order_by = "first_name ASC, student_id ASC"
+        order_by = "s.first_name ASC, s.student_id ASC"
 
     base_query += f" ORDER BY {order_by}"
 

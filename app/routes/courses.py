@@ -10,7 +10,7 @@ def courses_page():
     search_query = request.args.get('search_query', '')  
     filter_by = request.args.get('filter_by', '')  
     page = int(request.args.get('page', 1))  
-    per_page = 9  
+    per_page = 10  
 
     courses, colleges, total_pages = get_courses_page(search_query, filter_by, page, per_page)
 
