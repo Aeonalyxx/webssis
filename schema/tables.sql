@@ -28,9 +28,8 @@ CREATE TABLE IF NOT EXISTS students (
     course_code VARCHAR(20),
     year VARCHAR(1) NOT NULL,
     photo_url VARCHAR(255),
+    photo_public_id VARCHAR(255),
     FOREIGN KEY (course_code) REFERENCES courses(course_code)
         ON DELETE SET NULL
         ON UPDATE CASCADE
 );
-
-

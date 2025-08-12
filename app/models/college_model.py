@@ -6,22 +6,19 @@ def get_colleges(search_query='', filter_by=''):
     params = []
 
     if search_query:
+        sq_lower = search_query.lower()
         if filter_by:
             if filter_by == 'col_code':
-                query += " AND col_code LIKE %s"
-                params.append(f'%{search_query}%')
+                query += " AND LOWER(col_code) LIKE %s"
+                params.append(f"{sq_lower}%")  
             elif filter_by == 'col_name':
-                query += " AND col_name LIKE %s"
-                params.append(f'%{search_query}%')
+                query += " AND LOWER(col_name) LIKE %s"
+                params.append(f"%{sq_lower}%")
         else:
-            query += " AND (col_code LIKE %s OR col_name LIKE %s)"
-            params.extend([f'%{search_query}%', f'%{search_query}%'])
-
-    elif filter_by:
-        if filter_by == 'college_code':
-            query += " AND col_code IS NOT NULL"
-        elif filter_by == 'college_name':
-            query += " AND col_name IS NOT NULL"
+            query += " AND (LOWER(col_code) LIKE %s OR LOWER(col_name) LIKE %s)"
+            params.extend([f"{sq_lower}%", f"%{sq_lower}%"])
+    else:
+        pass
 
     conn = get_db_connection()
     cursor = conn.cursor(pymysql.cursors.DictCursor)

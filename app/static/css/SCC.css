@@ -111,7 +111,7 @@ table thead th {
 }
 
 .table-container {
-    max-height: 600px; /* Set desired height for the scrollable area */
+    max-height: 800px; /* Set desired height for the scrollable area */
     overflow-y: auto;
 }
 
@@ -124,11 +124,11 @@ table thead th {
 /* Students Table */
 .students-table th:nth-child(1), .students-table td:nth-child(1) { width: 5%; }
 .students-table th:nth-child(2), .students-table td:nth-child(2) { width: 10%; }
-.students-table th:nth-child(3), .students-table td:nth-child(3) { width: 15%; }
+.students-table th:nth-child(3), .students-table td:nth-child(3) { width: 25%; }
 .students-table th:nth-child(4), .students-table td:nth-child(4) { width: 10%; }
-.students-table th:nth-child(5), .students-table td:nth-child(5) { width: 15%; }
-.students-table th:nth-child(6), .students-table td:nth-child(6) { width: 7%; }
-.students-table th:nth-child(7), .students-table td:nth-child(7) { width: 8%; }
+.students-table th:nth-child(5), .students-table td:nth-child(5) { width: 10%; }
+.students-table th:nth-child(6), .students-table td:nth-child(6) { width: 10%; }
+.students-table th:nth-child(7), .students-table td:nth-child(7) { width: 10%; }
 
 .students-table thead th:nth-child(1) { padding-left: 10px; }
 .students-table thead th:nth-child(2) { padding-left: 20px; }
@@ -180,7 +180,7 @@ table thead th {
 
 .table tbody {
     display: block;
-    max-height: 480px; /* Control the scrollable area height */
+    max-height: 600px; /* Control the scrollable area height */
     overflow-y: auto;
     width: 100%;
 }

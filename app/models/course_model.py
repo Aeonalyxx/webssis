@@ -7,28 +7,35 @@ def get_courses(search_query='', filter_by='', page=1, per_page=8):
     params = []
 
     if search_query:
+        sq_lower = search_query.lower()
         if filter_by:
             if filter_by == 'course_code':
-                where_clauses.append("course_code LIKE %s")
-                params.append(f"%{search_query}%")
+                where_clauses.append("LOWER(course_code) LIKE %s")
+                params.append(f"{sq_lower}%")  
             elif filter_by == 'course_name':
-                where_clauses.append("course_name LIKE %s")
-                params.append(f"%{search_query}%")
+                where_clauses.append("LOWER(course_name) LIKE %s")
+                params.append(f"%{sq_lower}%") 
             elif filter_by == 'col_code':
-                where_clauses.append("col_code LIKE %s")
-                params.append(f"%{search_query}%")
+                where_clauses.append("LOWER(col_code) LIKE %s")
+                params.append(f"{sq_lower}%")
         else:
-            where_clauses.append("(course_code LIKE %s OR course_name LIKE %s OR col_code LIKE %s)")
-            params.extend([f"%{search_query}%"] * 3)
+            where_clauses.append(
+                "("
+                "LOWER(course_code) LIKE %s OR "
+                "LOWER(course_name) LIKE %s OR "
+                "LOWER(col_code) LIKE %s"
+                ")"
+            )
+            params.extend([f"{sq_lower}%", f"%{sq_lower}%", f"{sq_lower}%"])
 
     if where_clauses:
         sql += " WHERE " + " AND ".join(where_clauses)
 
     count_sql = f"SELECT COUNT(*) as total FROM ({sql}) AS count_table"
-    
+
     conn = get_db_connection()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
-    
+
     cursor.execute(count_sql, tuple(params))
     total_count = cursor.fetchone()['total']
 

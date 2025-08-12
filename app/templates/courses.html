@@ -18,7 +18,7 @@
                 <i class="fas fa-search"></i>
             </button>
 
-            <select class="form-control form-control-sm ml-2" id="filterSelect" name="filter_by" aria-label="Filter by">
+            <select class="form-control form-control-sm ml-2" id="filterSelect" name="filter_by" aria-label="Filter by" onchange="this.form.submit()">
                 <option value="course_code" {% if request.args.get('filter_by') == 'course_code' %}selected{% endif %}>Course Code</option>
                 <option value="course_name" {% if request.args.get('filter_by') == 'course_name' %}selected{% endif %}>Course Name</option>
                 <option value="col_code" {% if request.args.get('filter_by') == 'col_code' %}selected{% endif %}>College</option>

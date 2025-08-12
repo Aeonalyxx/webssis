@@ -18,20 +18,11 @@ def colleges_page():
 
 @colleges_bp.route('/add_college', methods=['POST'])
 def add_college():
-    try:
-        col_code = request.form['col_code']
-        col_name = request.form['college_name']
-
-        success = handle_add_college(col_code, col_name)
-        
-        if not success:
-            flash('College code already exists!', 'danger')
-        else:
-            flash('College added successfully!', 'success')
-
-    except Exception as e:
-        flash(f'Error adding college: {str(e)}', 'danger')
-
+    success, message, category = handle_add_college(
+        request.form['col_code'],
+        request.form['college_name']
+    )
+    flash(message, category)
     return redirect(url_for('colleges.colleges_page'))
 
 #=======================================================================================EDIT COLLEGE=============================================================
@@ -39,14 +30,12 @@ def add_college():
 @colleges_bp.route('/edit_college/<string:col_code>', methods=['GET', 'POST'])
 def edit_college(col_code):
     if request.method == 'POST':
-        new_col_code = request.form['col_code']
-        col_name = request.form['college_name']
-        try:
-            handle_edit_college(col_code, new_col_code, col_name)
-            flash('College updated successfully!', 'success')
-        except Exception as e:
-            flash(f'College code already exists!', 'danger')
-        
+        success, message, category = handle_edit_college(
+            col_code,
+            request.form['col_code'],
+            request.form['college_name']
+        )
+        flash(message, category)
         return redirect(url_for('colleges.colleges_page'))
 
     return render_template('edit_college.html', col_code=col_code)
@@ -55,11 +44,6 @@ def edit_college(col_code):
 
 @colleges_bp.route('/delete_college', methods=['POST'])
 def delete_college():
-    try:
-        col_code = request.form['col_code']
-        handle_delete_college(col_code)
-        flash('College deleted successfully, and courses updated!', 'success')
-    except Exception as e:
-        flash(f'Error deleting college: {str(e)}', 'danger')
-
+    success, message, category = handle_delete_college(request.form['col_code'])
+    flash(message, category)
     return redirect(url_for('colleges.colleges_page'))
