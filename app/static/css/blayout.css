@@ -109,7 +109,7 @@ table th, table td {
     flex-direction: column;
     align-items: center;
     padding-top: 20px;         /* Space from top of sidebar */
-    gap: 5px;                  /* Space between elements */
+    gap: 1px;                  /* Space between elements */
 }
 
 /* Sidebar Subtitle Styling */
@@ -181,7 +181,7 @@ table th, table td {
     text-decoration: none;      /* Remove underline from links */
     transition: background 0.3s, color 0.3s; /* Smooth transition */
     font-size: 25px;            /* Font size for links */
-    margin-top: 25px;
+    margin-top: 15px;
     border-radius: 25px;        /* Oval shape with high border radius */
 }
 
