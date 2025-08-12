@@ -10,7 +10,6 @@ def get_students_page(search_query='', filter_by='', page=1, per_page=8):
     students, courses, total_count = get_students(search_query, filter_by, page, per_page)
     total_pages = (total_count + per_page - 1) // per_page  
 
-    # Pagination range calculation
     start_page = max(page - 2, 1)
     end_page = min(page + 2, total_pages)
 
