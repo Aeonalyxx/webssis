@@ -60,14 +60,14 @@
                         <!-- Right Column: Photo Upload & Preview -->
                     <div class="col-md-5 text-center">
                         <label for="photo">Student Photo (Optional)</label>
-                        <input type="file" class="form-control-file mb-3" id="photo" name="photo" 
-                            accept="image/jpeg, image/png" onchange="previewPhoto(event)">
                         <img id="photoPreview" 
                             src="{{ url_for('static', filename='images/default_student.webp') }}" 
                             data-default="{{ url_for('static', filename='images/default_student.webp') }}"
                             alt="Student Photo" 
                             class="img-thumbnail rounded-circle" 
                             style="width: 200px; height: 200px; object-fit: cover;">
+                        <input type="file" class="form-control-file mb-3" id="photo" name="photo" 
+                            accept="image/jpeg, image/png" onchange="previewPhoto(event)">
                     </div>
                     </div>
 

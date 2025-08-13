@@ -100,8 +100,11 @@ table th, table td {
 .sidebar-title {
     margin: 0;                 /* Remove top/bottom margin */
     font-size: 36px;           /* Slightly smaller for better balance */
+    background-image: linear-gradient(to right, #a23333, #e0bd31);
+    -webkit-background-clip: text;
+    background-clip: text;
     font-weight: bolder;
-    color: #e0bd31;
+    color: transparent;
 }
 
 .sidebar-sticky {
